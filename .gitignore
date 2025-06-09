@@ -1,0 +1,30 @@
+# Global ignores for all projects
+.DS_Store
+Thumbs.db
+
+# Python (backend)
+**/.venv/
+**/__pycache__/
+**/*.py[cod]
+**/.mypy_cache/
+**/.pytest_cache/
+**/.idea/
+
+# Node.js / Expo (frontend)
+**/node_modules/
+**/.expo/
+**/.expo-shared/
+**/.vscode/
+**/dist/
+**/build/
+**/coverage/
+*.log
+
+# OS-specific files
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Git
+*.orig
+*.swp
