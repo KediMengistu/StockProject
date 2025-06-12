@@ -1,16 +1,26 @@
-# Global ignores for all projects
+# ========================
+# Global ignores
+# ========================
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
 
-# Python (backend)
+# ========================
+# Python (Backend)
+# ========================
 **/.venv/
 **/__pycache__/
 **/*.py[cod]
 **/.mypy_cache/
 **/.pytest_cache/
-**/.idea/
+StockProjectBackend/.venv/
+StockProjectBackend/.idea/
 
-# Node.js / Expo (frontend)
+# ========================
+# Node.js / Expo (Frontend)
+# ========================
 **/node_modules/
 **/.expo/
 **/.expo-shared/
@@ -20,11 +30,21 @@ Thumbs.db
 **/coverage/
 *.log
 
-# OS-specific files
-ehthumbs.db
-Icon?
-desktop.ini
-
+# ========================
 # Git
+# ========================
+.git/
+.gitignore
 *.orig
 *.swp
+
+# ========================
+# Editor/IDE
+# ========================
+.idea/
+.vscode/
+
+# ========================
+# Environment / Secrets
+# ========================
+.env*
