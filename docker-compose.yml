@@ -22,7 +22,8 @@ services:
       context: ./StockProjectBackend
       dockerfile: Dockerfile
     container_name: django-backend
-    command: python manage.py runserver 0.0.0.0:8000
+    entrypoint: ["/app/wait-for-mysql.sh"]
+    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - ./StockProjectBackend:/app
     ports:
