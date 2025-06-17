@@ -17,6 +17,7 @@ desktop.ini
 **/.pytest_cache/
 StockProjectBackend/.venv/
 StockProjectBackend/.idea/
+StockProjectBackend/firebase/firebase-adminsdk.json
 
 # ========================
 # Node.js / Expo (Frontend)

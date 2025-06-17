@@ -16,7 +16,11 @@ SECRET_KEY = 'django-insecure-5&(-5=y)d)drb-9o-@y_^$#cr$3ziis!q9zez$e3-l*3npfiuc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  "localhost",
+  "127.0.0.1",
+  os.getenv('BACKEND_HOST')
+]
 
 # Application definition
 INSTALLED_APPS = [
@@ -107,4 +111,8 @@ REST_FRAMEWORK = {
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     'rest_framework_simplejwt.authentication.JWTAuthentication',
     # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'firebase.firebase_auth.FirebaseAuthentication',
+        'nonfirebase.internal_auth.InternalAPIKeyAuthentication',
+    )
 }

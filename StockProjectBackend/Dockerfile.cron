@@ -1,0 +1,31 @@
+FROM python:3.13.3-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    cron \
+    curl \
+    gcc \
+    default-libmysqlclient-dev \
+    default-mysql-client \
+    pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy all project files into container
+COPY . /app/
+
+# Install Python dependencies
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
+
+# Copy crontab definition file and set permissions
+COPY crontab /etc/cron.d/stock-cron
+RUN chmod 0644 /etc/cron.d/stock-cron
+
+# Add the wait-for-backend startup script
+COPY wait-for-backend.sh /wait-for-backend.sh
+RUN chmod +x /wait-for-backend.sh
+
+# Set the entrypoint to wait for backend, then start cron
+CMD ["/wait-for-backend.sh"]
