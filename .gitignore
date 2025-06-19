@@ -20,16 +20,27 @@ StockProjectBackend/.idea/
 StockProjectBackend/firebase/firebase-adminsdk.json
 
 # ========================
-# Node.js / Expo (Frontend)
+# Node.js / Frontend (Next.js + Shadcn UI)
 # ========================
 **/node_modules/
-**/.expo/
-**/.expo-shared/
 **/.vscode/
 **/dist/
 **/build/
 **/coverage/
 *.log
+
+# Specific to StockProjectFrontend/stockui
+StockProjectFrontend/stockui/node_modules/
+StockProjectFrontend/stockui/.next/
+StockProjectFrontend/stockui/out/
+StockProjectFrontend/stockui/.turbo/
+StockProjectFrontend/stockui/.vercel/
+StockProjectFrontend/stockui/coverage/
+StockProjectFrontend/stockui/build/
+StockProjectFrontend/stockui/.env*
+StockProjectFrontend/stockui/*.log
+StockProjectFrontend/stockui/tsconfig.tsbuildinfo
+StockProjectFrontend/stockui/next-env.d.ts
 
 # ========================
 # Git

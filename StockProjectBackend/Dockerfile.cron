@@ -6,6 +6,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     cron \
     curl \
+    procps \            
     gcc \
     default-libmysqlclient-dev \
     default-mysql-client \
@@ -21,11 +22,11 @@ RUN pip install -r requirements.txt
 
 # Copy crontab definition file and set permissions
 COPY crontab /etc/cron.d/stock-cron
-RUN chmod 0644 /etc/cron.d/stock-cron
+RUN chmod 0644 /etc/cron.d/stock-cron && crontab /etc/cron.d/stock-cron
 
 # Add the wait-for-backend startup script
 COPY wait-for-backend.sh /wait-for-backend.sh
 RUN chmod +x /wait-for-backend.sh
 
-# Set the entrypoint to wait for backend, then start cron
+# Start the container by waiting for backend, then launching cron in foreground
 CMD ["/wait-for-backend.sh"]

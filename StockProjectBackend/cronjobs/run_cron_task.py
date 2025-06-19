@@ -2,9 +2,10 @@ import os
 import requests
 from datetime import datetime
 from dotenv import load_dotenv
+from pathlib import Path
 
-# Load environment variables
-load_dotenv()
+dotenv_path = Path(__file__).resolve().parent.parent / ".env.stockapi"
+load_dotenv(dotenv_path=dotenv_path)
 
 # Internal API (your Django backend)
 BACKEND_HOST = os.getenv("BACKEND_HOST")
