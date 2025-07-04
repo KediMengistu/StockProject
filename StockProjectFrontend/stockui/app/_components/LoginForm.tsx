@@ -1,7 +1,5 @@
 "use client";
-
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -9,12 +7,26 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
+import { auth } from "@/firebase/firebaseConfig";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const handleGoogleLogin = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        // No need to do anything here if you're using onAuthStateChanged
+        console.log("✅ signInWithPopup success:", result.user);
+      })
+      .catch((error) => {
+        console.error("❌ signInWithPopup error:", error);
+      });
+  };
   return (
     <div className={cn("flex flex-col gap-6 w-58", className)} {...props}>
       {/* Glowing effect + card container must be relative */}
@@ -26,18 +38,20 @@ export function LoginForm({
           proximity={64}
           inactiveZone={0.01}
         />
-
         <Card className="relative z-10 rounded-xl">
           <CardHeader className="text-center">
             <CardTitle className="text-xl">Welcome back to Stock4U</CardTitle>
             <CardDescription>Continue with your Google account</CardDescription>
           </CardHeader>
-
           <CardContent>
             <form>
               <div className="grid gap-6">
                 <div className="flex flex-col gap-4">
-                  <Button variant="outline" className="w-full cursor-pointer">
+                  <Button
+                    variant="outline"
+                    className="w-full cursor-pointer"
+                    onClick={handleGoogleLogin}
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
