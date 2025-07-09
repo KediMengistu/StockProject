@@ -1,5 +1,4 @@
 // src/app/start/page.tsx
-"use client";
 
 import { LoginForm } from "@/app/_components/LoginForm";
 

@@ -3,6 +3,7 @@ import { Card } from "@/components/ui/card";
 import { ModeToggle } from "./ModeToggle";
 import { NavMenu } from "./NavMenu";
 import { ComboBox } from "./ComboBox";
+import { AnimatePresence, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
 export function NavBar() {
@@ -13,13 +14,26 @@ export function NavBar() {
         <NavMenu />
         {pathname.includes("stock-info") ? (
           <>
-            <ComboBox />
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={"combo-box"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                style={{
+                  willChange: "transform",
+                  backfaceVisibility: "hidden",
+                }}
+              >
+                <ComboBox />
+              </motion.div>
+            </AnimatePresence>
           </>
         ) : (
           <></>
         )}
       </div>
-
       <ModeToggle />
     </Card>
   );

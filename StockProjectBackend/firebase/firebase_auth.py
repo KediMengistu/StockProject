@@ -1,6 +1,27 @@
 from rest_framework import authentication, exceptions
 from firebase_admin import auth as firebase_auth
-import firebase_admin
+
+
+# Define a proper user class compatible with Django's expectations
+class FirebaseUser:
+    def __init__(self, uid: str, email: str):
+        self.uid = uid
+        self.email = email
+
+    @property
+    def is_authenticated(self) -> bool:
+        return True
+
+    @property
+    def is_anonymous(self) -> bool:
+        return False
+
+    def get_username(self) -> str:
+        return self.email
+
+    def __str__(self):
+        return f"FirebaseUser<{self.email}>"
+
 
 class FirebaseAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
@@ -8,7 +29,7 @@ class FirebaseAuthentication(authentication.BaseAuthentication):
         auth_header = request.headers.get('Authorization')
 
         if not auth_header:
-            return None  # No auth header = move on to other auth methods (or return 403 later)
+            return None  # No auth header = allow unauthenticated access or continue to next method
 
         # Check format: must be "Bearer <token>"
         parts = auth_header.split()
@@ -21,13 +42,12 @@ class FirebaseAuthentication(authentication.BaseAuthentication):
             # Decode and verify token using Firebase Admin SDK
             decoded_token = firebase_auth.verify_id_token(id_token)
 
-            # You can extract Firebase UID or email like this:
+            # Extract Firebase UID or email
             firebase_uid = decoded_token.get('uid')
             email = decoded_token.get('email')
 
-            # You can either return an AnonymousUser or a custom User object
-            # Here we just return a dummy user object (or None)
-            user = type('FirebaseUser', (), {'uid': firebase_uid, 'email': email})()
+            # Create a valid user object
+            user = FirebaseUser(uid=firebase_uid, email=email)
 
             return (user, None)
 

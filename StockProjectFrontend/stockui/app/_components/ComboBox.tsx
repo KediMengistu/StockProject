@@ -16,54 +16,27 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useAppStore } from "../../store/appStore"; // ✅ Updated
 
 const stocks = [
-  {
-    value: "AMZN",
-    label: "Amazon",
-  },
-  {
-    value: "AAPL",
-    label: "Apple",
-  },
-  {
-    value: "ADBE",
-    label: "Adobe",
-  },
-  {
-    value: "GOOGL",
-    label: "Google",
-  },
-  {
-    value: "INTC",
-    label: "Intel",
-  },
-  {
-    value: "META",
-    label: "Meta",
-  },
-  {
-    value: "MSFT",
-    label: "Microsoft",
-  },
-  {
-    value: "NFLX",
-    label: "Netflix",
-  },
-  {
-    value: "NVDA",
-    label: "Nvidia",
-  },
-  {
-    value: "TSLA",
-    label: "Tesla",
-  },
+  { value: "AMZN", label: "Amazon" },
+  { value: "AAPL", label: "Apple" },
+  { value: "ADBE", label: "Adobe" },
+  { value: "GOOGL", label: "Google" },
+  { value: "INTC", label: "Intel" },
+  { value: "META", label: "Meta" },
+  { value: "MSFT", label: "Microsoft" },
+  { value: "NFLX", label: "Netflix" },
+  { value: "NVDA", label: "Nvidia" },
+  { value: "TSLA", label: "Tesla" },
 ];
 
 export function ComboBox() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
-
+  const setSymbol = useAppStore((state) => state.setSymbol);
+  const fetchStockData = useAppStore((state) => state.fetchStockData);
+  const resetStockState = useAppStore((state) => state.resetStockState);
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -71,7 +44,7 @@ export function ComboBox() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[120px] justify-between text-xs cursor-pointer"
+          className="w-[125px] justify-between text-xs cursor-pointer"
         >
           {value
             ? stocks.find((stock) => stock.value === value)?.label
@@ -92,7 +65,18 @@ export function ComboBox() {
                   key={stock.value}
                   value={stock.value}
                   onSelect={(currentValue) => {
-                    setValue(currentValue === value ? "" : currentValue);
+                    const isSame = currentValue === value;
+                    if (isSame) {
+                      // Deselect the stock
+                      setValue("");
+                      resetStockState();
+                    } else {
+                      // New selection
+                      setValue(currentValue);
+                      setSymbol(currentValue);
+                      const latestSymbol = useAppStore.getState().symbol;
+                      fetchStockData(latestSymbol);
+                    }
                     setOpen(false);
                   }}
                   className="text-xs cursor-pointer"

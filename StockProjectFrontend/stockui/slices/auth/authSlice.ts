@@ -1,4 +1,3 @@
-// app/store/slices/authSlice.ts
 import { StateCreator } from "zustand";
 
 export interface AuthSlice {

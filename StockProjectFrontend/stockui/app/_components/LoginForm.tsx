@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   Card,
   CardContent,
@@ -9,67 +10,73 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import { auth } from "@/firebase/firebaseConfig";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithGoogle } from "../../firebase/auth_google_signin_popup";
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const handleGoogleLogin = () => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // No need to do anything here if you're using onAuthStateChanged
-        console.log("✅ signInWithPopup success:", result.user);
-      })
-      .catch((error) => {
-        console.error("❌ signInWithPopup error:", error);
-      });
-  };
+  async function handleClick() {
+    await signInWithGoogle();
+  }
   return (
-    <div className={cn("flex flex-col gap-6 w-58", className)} {...props}>
-      {/* Glowing effect + card container must be relative */}
-      <div className="relative rounded-xl">
-        <GlowingEffect
-          spread={40}
-          glow={true}
-          disabled={false}
-          proximity={64}
-          inactiveZone={0.01}
-        />
-        <Card className="relative z-10 rounded-xl">
-          <CardHeader className="text-center">
-            <CardTitle className="text-xl">Welcome back to Stock4U</CardTitle>
-            <CardDescription>Continue with your Google account</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form>
-              <div className="grid gap-6">
-                <div className="flex flex-col gap-4">
-                  <Button
-                    variant="outline"
-                    className="w-full cursor-pointer"
-                    onClick={handleGoogleLogin}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      className="h-5 w-5 mr-2"
-                    >
-                      <path
-                        d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
-                        fill="currentColor"
-                      />
-                    </svg>
-                    Link with Google
-                  </Button>
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={"login-form"}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        style={{ willChange: "transform", backfaceVisibility: "hidden" }}
+      >
+        <div className={cn("flex flex-col gap-6 w-58", className)} {...props}>
+          {/* Glowing effect + card container must be relative */}
+          <div className="relative rounded-xl">
+            <GlowingEffect
+              spread={40}
+              glow={true}
+              disabled={false}
+              proximity={64}
+              inactiveZone={0.01}
+            />
+            <Card className="relative z-10 rounded-xl">
+              <CardHeader className="text-center">
+                <CardTitle className="text-xl">
+                  Welcome back to Stock4U
+                </CardTitle>
+                <CardDescription>
+                  Continue with your Google account
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div>
+                  <div className="grid gap-6">
+                    <div className="flex flex-col gap-4">
+                      <Button
+                        variant="outline"
+                        className="w-full cursor-pointer"
+                        onClick={handleClick}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          className="h-5 w-5 mr-2"
+                        >
+                          <path
+                            d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+                            fill="currentColor"
+                          />
+                        </svg>
+                        Link with Google
+                      </Button>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </form>
-          </CardContent>
-        </Card>
-      </div>
-    </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

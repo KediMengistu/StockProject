@@ -7,9 +7,13 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import { usePathname } from "next/navigation";
+import { signOutWithGoogle } from "../../firebase/auth_google_signout";
 
 export function NavMenu() {
   const pathname = usePathname();
+  async function handleClick() {
+    await signOutWithGoogle();
+  }
   return (
     <Menubar className="w-fit">
       <MenubarMenu>
@@ -19,7 +23,11 @@ export function NavMenu() {
         <MenubarContent className="w-[150px]">
           <MenubarItem className="cursor-pointer text-xs">
             {pathname.includes("stock-info") ? (
-              <>Sign out</>
+              <>
+                <button className="cursor-pointer" onClick={handleClick}>
+                  Sign out
+                </button>
+              </>
             ) : (
               <>Account Setup</>
             )}

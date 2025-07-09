@@ -1,0 +1,20 @@
+export type StockDataDTO = {
+  id: number;
+  symbol: string;
+  name: string;
+  price: number;
+  changes_percentage: number;
+  change: number;
+  day_low: number;
+  day_high: number;
+  year_high: number;
+  year_low: number;
+  market_cap: number;
+  price_avg_50: number;
+  price_avg_200: number;
+  volume: number;
+  exchange: string;
+  open: number;
+  previous_close: number;
+  timestamp: number;
+};
