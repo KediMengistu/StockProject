@@ -2,7 +2,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { ThemeProvider } from "@/app/_components/theme-provider";
+import { ThemeProvider } from "@/app/_components/ThemeProvider";
 import { NavBar } from "@/app/_components/NavBar";
 import StoreWrapper from "./_components/StoreWrapper";
 
@@ -27,11 +27,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className="h-full w-full overflow-y-auto"
+      className="h-full w-full overflow-y-hidden"
       suppressHydrationWarning
     >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full w-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased h-full w-full overflow-y-hidden`}
       >
         <ThemeProvider
           attribute="class"
@@ -46,7 +46,7 @@ export default function RootLayout({
                 "[background-size:40px_40px]",
                 "[background-image:linear-gradient(to_right,#e4e4e7_1px,transparent_1px),linear-gradient(to_bottom,#e4e4e7_1px,transparent_1px)]",
                 "dark:[background-image:linear-gradient(to_right,#262626_1px,transparent_1px),linear-gradient(to_bottom,#262626_1px,transparent_1px)]"
-              )} grid grid-rows-[auto_1fr] h-full w-full`}
+              )} grid grid-rows-[auto_1fr] h-full w-full overflow-y-hidden`}
             >
               <NavBar />
               {children}
