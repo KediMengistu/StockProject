@@ -44,7 +44,7 @@ export function ComboBox() {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[125px] justify-between text-xs cursor-pointer"
+          className="w-[110px] justify-between text-[9px] cursor-pointer"
         >
           {value
             ? stocks.find((stock) => stock.value === value)?.label
@@ -54,9 +54,12 @@ export function ComboBox() {
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0 cursor-pointer">
         <Command>
-          <CommandInput placeholder="Search stock..." className="h-9 text-xs" />
+          <CommandInput
+            placeholder="Search stock..."
+            className="h-9 text-[9px]"
+          />
           <CommandList>
-            <CommandEmpty className="p-3 text-center text-xs">
+            <CommandEmpty className="p-3 text-center text-[9px]">
               No stock found.
             </CommandEmpty>
             <CommandGroup>
@@ -79,7 +82,7 @@ export function ComboBox() {
                     }
                     setOpen(false);
                   }}
-                  className="text-xs cursor-pointer"
+                  className="text-[9px] cursor-pointer"
                 >
                   {stock.label}
                   <Check

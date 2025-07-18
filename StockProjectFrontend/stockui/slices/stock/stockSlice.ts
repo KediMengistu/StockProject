@@ -4,7 +4,7 @@ import { StockDataDTO } from "./stockDataDTO";
 
 export interface StockSlice {
   symbol: string;
-  stockData: StockDataDTO | null;
+  stockData: StockDataDTO[]; // ✅ Array of StockDataDTO objects
   error: string | null;
   status: "idle" | "pending" | "succeeded" | "failed";
   setSymbol: (symbol: string) => void;
@@ -19,7 +19,7 @@ export const createStockSlice: StateCreator<StockSlice, [], [], StockSlice> = (
   set
 ) => ({
   symbol: "",
-  stockData: null,
+  stockData: [], // ✅ initialize as empty array
   error: null,
   status: "idle",
   setSymbol: (symbol: string) => set({ symbol }),
@@ -49,24 +49,24 @@ export const createStockSlice: StateCreator<StockSlice, [], [], StockSlice> = (
         (error as any).status = errorData.status;
         throw error;
       }
-      const data = await response.json();
+      const data: StockDataDTO[] = await response.json();
       set({ stockData: data, status: "succeeded", error: null });
     } catch (error: any) {
       console.error("Fetch error:", error);
       set({
-        stockData: null,
+        stockData: [],
         error: error.message || "Unknown error",
         status: "failed",
       });
     }
   },
-  resetStockData: () => set({ stockData: null }),
+  resetStockData: () => set({ stockData: [] }),
   resetError: () => set({ error: null }),
   resetStatus: () => set({ status: "idle" }),
   resetStockState: () =>
     set({
       symbol: "",
-      stockData: null,
+      stockData: [],
       error: null,
       status: "idle",
     }),

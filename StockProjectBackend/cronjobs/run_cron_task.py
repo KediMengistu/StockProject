@@ -4,10 +4,11 @@ from datetime import datetime
 from dotenv import load_dotenv
 from pathlib import Path
 
+# Load environment variables
 dotenv_path = Path(__file__).resolve().parent.parent / ".env.stockapi"
 load_dotenv(dotenv_path=dotenv_path)
 
-# Internal API (your Django backend)
+# Internal API
 BACKEND_HOST = os.getenv("BACKEND_HOST")
 BACKEND_PORT = os.getenv("BACKEND_PORT")
 INTERNAL_API_BASE = f"http://{BACKEND_HOST}:{BACKEND_PORT}/api/stocks"
@@ -17,27 +18,12 @@ INTERNAL_API_KEY = os.getenv("INTERNAL_API_KEY")
 EXTERNAL_API_KEY = os.getenv("EXTERNAL_API_KEY")
 EXTERNAL_API_URL = "https://financialmodelingprep.com/stable/quote"
 
-# Hardcoded fallback stock symbols
+# Symbols to fetch
 DEFAULT_SYMBOLS = ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "META", "TSLA", "ADBE", "INTC", "NFLX"]
 
 def log(msg):
     now = datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC")
     print(f"[{now}] {msg}")
-
-def get_all_stocks():
-    headers = {"X-INTERNAL-KEY": INTERNAL_API_KEY}
-    try:
-        log("Requesting internal stock list from backend...")
-        response = requests.get(f"{INTERNAL_API_BASE}/", headers=headers)
-        if response.status_code == 200:
-            log(f"Successfully received {len(response.json())} stock(s).")
-            return response.json()
-        else:
-            log(f"Failed to fetch internal stocks: HTTP {response.status_code}")
-            return []
-    except Exception as e:
-        log(f"Error connecting to backend for internal stocks: {e}")
-        return []
 
 def fetch_stock_data(symbol):
     params = {
@@ -46,33 +32,19 @@ def fetch_stock_data(symbol):
         "apikey": EXTERNAL_API_KEY
     }
     try:
-        log(f"Fetching external stock data for: {symbol}")
+        log(f"Fetching data for: {symbol}")
         response = requests.get(EXTERNAL_API_URL, params=params)
-
-        try:
-            data = response.json()
-        except ValueError:
-            log(f"❌ Non-JSON response received for {symbol}")
+        data = response.json()
+        
+        if response.status_code != 200 or not isinstance(data, list) or not data:
+            log(f"❌ Error or empty data for {symbol}: {response.status_code} {data}")
             return None
 
-        if response.status_code != 200:
-            log(f"❌ HTTP error for {symbol}: {response.status_code} - {response.text}")
-            return None
+        return data[0]  # External API returns a list of dicts
 
-        if isinstance(data, dict) and "error" in data:
-            log(f"❌ API error for {symbol}: {data['error']}")
-            return None
-
-        if isinstance(data, list) and len(data) > 0 and isinstance(data[0], dict):
-            log(f"Successfully fetched data for {symbol}")
-            return data[0]
-        else:
-            log(f"❌ Unexpected data format received for {symbol}: {data}")
-            return None
-
-    except requests.RequestException as e:
+    except Exception as e:
         log(f"❌ Request failed for {symbol}: {e}")
-    return None
+        return None
 
 def normalize_stock_data(stock):
     return {
@@ -98,50 +70,21 @@ def normalize_stock_data(stock):
 def create_stock(stock_data):
     headers = {"X-INTERNAL-KEY": INTERNAL_API_KEY}
     try:
-        log(f"Creating stock: {stock_data['symbol']}")
         response = requests.post(f"{INTERNAL_API_BASE}/create/", json=stock_data, headers=headers)
-        log(f"Created {stock_data['symbol']}: HTTP {response.status_code}")
+        log(f"✅ Created stock {stock_data['symbol']} | Status: {response.status_code}")
     except Exception as e:
-        log(f"Failed to create stock {stock_data['symbol']}: {e}")
-
-def update_stock(stock_data):
-    headers = {"X-INTERNAL-KEY": INTERNAL_API_KEY}
-    try:
-        log(f"Updating stock: {stock_data['symbol']}")
-        response = requests.put(f"{INTERNAL_API_BASE}/update/", json=stock_data, headers=headers)
-        log(f"Updated {stock_data['symbol']}: HTTP {response.status_code}")
-    except Exception as e:
-        log(f"Failed to update stock {stock_data['symbol']}: {e}")
+        log(f"❌ Failed to create stock {stock_data['symbol']}: {e}")
 
 def run_cron_task():
-    log("📡 Starting cron task...")
-
-    internal_stocks = get_all_stocks()
-
-    if not internal_stocks:
-        log("No internal stocks found — initializing from default list...")
-        for symbol in DEFAULT_SYMBOLS:
-            stock_data = fetch_stock_data(symbol)
-            if stock_data:
-                normalized = normalize_stock_data(stock_data)
-                create_stock(normalized)
-            else:
-                log(f"❌ Could not fetch/create stock for {symbol}")
-    else:
-        log("Internal stocks found — proceeding to update...")
-        for stock in internal_stocks:
-            symbol = stock.get("symbol")
-            if symbol:
-                updated_data = fetch_stock_data(symbol)
-                if updated_data:
-                    normalized = normalize_stock_data(updated_data)
-                    update_stock(normalized)
-                else:
-                    log(f"❌ Could not fetch update data for {symbol}")
-            else:
-                log("⚠️ Skipping stock with missing symbol.")
-
-    log("✅ Cron task completed.")
+    log("📡 Cron job started")
+    for symbol in DEFAULT_SYMBOLS:
+        stock_data = fetch_stock_data(symbol)
+        if stock_data:
+            normalized = normalize_stock_data(stock_data)
+            create_stock(normalized)
+        else:
+            log(f"⚠️ Skipping {symbol} due to fetch failure")
+    log("✅ Cron job completed")
 
 if __name__ == "__main__":
     run_cron_task()

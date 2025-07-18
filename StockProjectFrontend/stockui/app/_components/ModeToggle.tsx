@@ -29,19 +29,19 @@ export function ModeToggle() {
       <DropdownMenuContent align="end">
         <DropdownMenuItem
           onClick={() => setTheme("light")}
-          className="cursor-pointer text-xs"
+          className="cursor-pointer text-[9px]"
         >
           Light
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("dark")}
-          className="cursor-pointer text-xs"
+          className="cursor-pointer text-[9px]"
         >
           Dark
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => setTheme("system")}
-          className="cursor-pointer text-xs"
+          className="cursor-pointer text-[9px]"
         >
           System
         </DropdownMenuItem>

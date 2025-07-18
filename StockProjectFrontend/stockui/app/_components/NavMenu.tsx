@@ -17,11 +17,11 @@ export function NavMenu() {
   return (
     <Menubar className="w-fit">
       <MenubarMenu>
-        <MenubarTrigger className="cursor-pointer text-xs">
+        <MenubarTrigger className="cursor-pointer text-[9px]">
           {pathname.includes("stock-info") ? <>Exit</> : <>Start</>}
         </MenubarTrigger>
         <MenubarContent className="w-[150px]">
-          <MenubarItem className="cursor-pointer text-xs">
+          <MenubarItem className="cursor-pointer text-[9px]">
             {pathname.includes("stock-info") ? (
               <>
                 <button className="cursor-pointer" onClick={handleClick}>
@@ -33,7 +33,7 @@ export function NavMenu() {
             )}
           </MenubarItem>
           {pathname.includes("start") ? (
-            <MenubarItem className="cursor-pointer text-xs">
+            <MenubarItem className="cursor-pointer text-[9px]">
               App Preview
             </MenubarItem>
           ) : (
@@ -42,26 +42,32 @@ export function NavMenu() {
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
-        <MenubarTrigger className="cursor-pointer text-xs">
+        <MenubarTrigger className="cursor-pointer text-[9px]">
           About
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem className="cursor-pointer text-xs">Purpose</MenubarItem>
-          <MenubarItem className="cursor-pointer text-xs">
+          <MenubarItem className="cursor-pointer text-[9px]">
+            Purpose
+          </MenubarItem>
+          <MenubarItem className="cursor-pointer text-[9px]">
             Architecture
           </MenubarItem>
-          <MenubarItem className="cursor-pointer text-xs">
+          <MenubarItem className="cursor-pointer text-[9px]">
             Tech Stack
           </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
       <MenubarMenu>
-        <MenubarTrigger className="cursor-pointer text-xs">
+        <MenubarTrigger className="cursor-pointer text-[9px]">
           Contact
         </MenubarTrigger>
         <MenubarContent>
-          <MenubarItem className="cursor-pointer text-xs">Linkedin</MenubarItem>
-          <MenubarItem className="cursor-pointer text-xs">Resume</MenubarItem>
+          <MenubarItem className="cursor-pointer text-[9px]">
+            Linkedin
+          </MenubarItem>
+          <MenubarItem className="cursor-pointer text-[9px]">
+            Resume
+          </MenubarItem>
         </MenubarContent>
       </MenubarMenu>
     </Menubar>
