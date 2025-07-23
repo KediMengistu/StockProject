@@ -6,7 +6,9 @@ import {
 } from "@/components/ui/tooltip";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "../../store/appStore";
+import { Spinner } from "@/components/ui/spinner";
 export default function StockHomePage() {
+  const symbol = useAppStore((state) => state.symbol);
   const status = useAppStore((state) => state.status);
   const error = useAppStore((state) => state.error);
   return (
@@ -22,27 +24,54 @@ export default function StockHomePage() {
       >
         {status !== "failed" ? (
           <>
-            <motion.div
-              key={"stock-home-default"}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              style={{ willChange: "transform", backfaceVisibility: "hidden" }}
-            >
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <div className="w-48 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 border-dashed dark:border-solid rounded-2xl">
-                    <p className="text-xs text-center cursor-default">
-                      Stock4U Dashboard
-                    </p>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Choose Stock in Navbar to View Data</p>
-                </TooltipContent>
-              </Tooltip>
-            </motion.div>
+            {status === "pending" ||
+            status === "succeeded" ||
+            (status === "idle" && symbol !== "") ? (
+              <>
+                <motion.div
+                  key={`stock-home-pending`}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  style={{
+                    willChange: "transform",
+                    backfaceVisibility: "hidden",
+                  }}
+                  className="w-32 flex items-center justify-center gap-1 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 dark:border-solid rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]"
+                >
+                  <span className="text-[9px]">Pending...</span>
+                  <Spinner size={"small"} />
+                </motion.div>
+              </>
+            ) : (
+              <>
+                <motion.div
+                  key={"stock-home-default"}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  style={{
+                    willChange: "transform",
+                    backfaceVisibility: "hidden",
+                  }}
+                >
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <div className="w-48 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 dark:border-solid rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
+                        <p className="text-xs text-center cursor-default">
+                          Stock4U Dashboard
+                        </p>
+                      </div>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Choose Stock in Navbar to View Data</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </motion.div>
+              </>
+            )}
           </>
         ) : (
           <>
@@ -57,7 +86,7 @@ export default function StockHomePage() {
                 backfaceVisibility: "hidden",
               }}
             >
-              <div className="w-48 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 border-dashed dark:border-solid rounded-2xl">
+              <div className="w-48 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 dark:border-solid rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
                 <p className="text-xs text-center cursor-default">{error}</p>
               </div>
             </motion.div>
