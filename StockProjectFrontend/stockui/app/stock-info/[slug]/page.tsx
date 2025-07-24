@@ -1,7 +1,10 @@
 "use client";
 import { use } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChartAreaDefault } from "@/app/_components/ChartAreaDefault";
+import { ChartAreaPrice } from "@/app/_components/ChartAreaPrice";
+import { ChartBarVolume } from "@/app/_components/ChartBarVolume";
+import { StockInfoTable } from "@/app/_components/StockInfoTable";
+import { StockSupplementaryTable } from "@/app/_components/StockSupplementaryTable";
 import { useAppStore } from "@/store/appStore";
 import { Spinner } from "@/components/ui/spinner";
 export default function StockSelectedPage({
@@ -36,8 +39,20 @@ export default function StockSelectedPage({
                     willChange: "transform",
                     backfaceVisibility: "hidden",
                   }}
+                  className="w-full h-full grid grid-cols-none grid-rows-2 md:grid-cols-[1.5fr_1fr] md:grid-rows-1"
                 >
-                  <ChartAreaDefault />
+                  <div className="flex items-center justify-end pr-1">
+                    <div className="h-[339.05px] w-fit grid grid-rows-[1fr_auto]">
+                      <div className="grid grid-cols-2 gap-1">
+                        <ChartAreaPrice />
+                        <ChartBarVolume />
+                      </div>
+                      <StockSupplementaryTable />
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-start">
+                    <StockInfoTable />
+                  </div>
                 </motion.div>
               </>
             ) : (

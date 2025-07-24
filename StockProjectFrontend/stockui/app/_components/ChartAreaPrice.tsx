@@ -35,7 +35,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 // Custom Tooltip with trailing zero formatting
-const CustomChartTooltip = ({ label, payload }: TooltipProps<any, any>) => {
+const CustomPriceTooltip = ({ label, payload }: TooltipProps<any, any>) => {
   if (!payload || !payload.length) return null;
   const data = payload[0].payload;
 
@@ -54,7 +54,7 @@ const CustomChartTooltip = ({ label, payload }: TooltipProps<any, any>) => {
   );
 };
 
-export function ChartAreaDefault() {
+export function ChartAreaPrice() {
   const symbol = useAppStore((state) => state.symbol);
   const stockData = useAppStore((state) => state.stockData);
 
@@ -91,8 +91,8 @@ export function ChartAreaDefault() {
   }, [chartData]);
 
   return (
-    <Card className="h-fit w-[250px] py-4 gap-1 bg-transparent shadow-none border-none">
-      <CardHeader className="py-2 border-1 border-black dark:border-1 dark:border-stone-700 rounded-t-sm shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
+    <Card className="h-fit w-[250px] py-0 gap-1 bg-transparent shadow-none border-none">
+      <CardHeader className="py-2 border-1 border-black dark:border-1 dark:border-stone-700 rounded-tl-2xl bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
         <CardTitle className="underline">
           {symbol} - Stock Price Chart
         </CardTitle>
@@ -126,7 +126,7 @@ export function ChartAreaDefault() {
               axisLine={false}
               width={0}
             />
-            <ChartTooltip content={<CustomChartTooltip />} />
+            <ChartTooltip content={<CustomPriceTooltip />} />
             <Area
               dataKey="price"
               type="monotone"
