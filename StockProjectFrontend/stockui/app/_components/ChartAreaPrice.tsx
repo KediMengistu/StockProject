@@ -91,11 +91,9 @@ export function ChartAreaPrice() {
   }, [chartData]);
 
   return (
-    <Card className="h-fit w-[250px] py-0 gap-1 bg-transparent shadow-none border-none">
-      <CardHeader className="py-2 border-1 border-black dark:border-1 dark:border-stone-700 rounded-tl-2xl bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
-        <CardTitle className="underline">
-          {symbol} - Stock Price Chart
-        </CardTitle>
+    <Card className="h-fit min-w-[100px] max-w-[250px] py-0 gap-1 bg-transparent shadow-none border-none">
+      <CardHeader className="py-2 border-1 border-black dark:border-1 dark:border-stone-700 rounded-tl-2xl rounded-tr-2xl md:rounded-tr-none bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
+        <CardTitle className="underline">{symbol} - Price Chart</CardTitle>
         <CardDescription>
           72 hour stock cycle for {symbol} (NASDAQ).
         </CardDescription>

@@ -33,9 +33,18 @@ export function StockSupplementaryTable() {
   );
 
   return (
-    <div className="max-w-[504px] overflow-x-auto rounded-bl-xl border border-black dark:border-stone-700 bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)] mt-2">
+    <div
+      className="max-w-[250px] md:max-w-[504px] overflow-x-auto rounded-bl-none md:rounded-bl-xl border border-black dark:border-stone-700 bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]
+      [&::-webkit-scrollbar]:w-2
+      [&::-webkit-scrollbar-track]:rounded-full
+      [&::-webkit-scrollbar-track]:bg-transparent
+      [&::-webkit-scrollbar-thumb]:rounded-full
+    [&::-webkit-scrollbar-thumb]:bg-gray-300
+    dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+    dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+    >
       <Table>
-        <TableCaption className="mt-0 mb-2 text-[9px]">
+        <TableCaption className="mt-0 mb-2 ml-3 text-[9px] text-left">
           {symbol} - Latest Stock Supplementary Information
         </TableCaption>
         <TableHeader>

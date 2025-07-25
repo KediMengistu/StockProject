@@ -23,7 +23,7 @@ export default function StockSelectedPage({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{ willChange: "transform", backfaceVisibility: "hidden" }}
-        className="h-full w-full p-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-2xl flex items-center justify-center"
+        className="h-full w-full p-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-2xl flex items-center justify-center overflow-y-hidden"
       >
         {slug !== "" ? (
           <>
@@ -39,18 +39,29 @@ export default function StockSelectedPage({
                     willChange: "transform",
                     backfaceVisibility: "hidden",
                   }}
-                  className="w-full h-full grid grid-cols-none grid-rows-2 md:grid-cols-[1.5fr_1fr] md:grid-rows-1"
+                  className="w-full h-full grid grid-cols-none grid-rows-[auto_auto] md:grid-cols-[1.4fr_1fr] md:grid-rows-1 overflow-y-auto
+                  [&::-webkit-scrollbar]:w-2
+                  [&::-webkit-scrollbar-track]:rounded-full
+                  [&::-webkit-scrollbar-track]:bg-transparent
+                  [&::-webkit-scrollbar-thumb]:rounded-full
+                [&::-webkit-scrollbar-thumb]:bg-gray-300
+                dark:[&::-webkit-scrollbar-track]:bg-neutral-700
+                dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
                 >
-                  <div className="flex items-center justify-end pr-1">
-                    <div className="h-[339.05px] w-fit grid grid-rows-[1fr_auto]">
-                      <div className="grid grid-cols-2 gap-1">
-                        <ChartAreaPrice />
-                        <ChartBarVolume />
+                  <div className="flex items-end md:items-center justify-center md:justify-end pb-1 md:pb-0 md:pr-1">
+                    <div className="min-h-[343.9px] w-fit grid grid-rows-[auto_auto] gap-1">
+                      <div className="grid grid-rows-2 grid-cols-none md:grid-cols-2 md:grid-rows-none gap-1">
+                        <div className="flex items-center md:items-start justify-center">
+                          <ChartAreaPrice />
+                        </div>
+                        <div className="flex items-center md:items-start justify-center">
+                          <ChartBarVolume />
+                        </div>
                       </div>
                       <StockSupplementaryTable />
                     </div>
                   </div>
-                  <div className="flex items-center justify-start">
+                  <div className="pb-1 pr-0 md:pb-0 md:pr-1 flex items-start md:items-center justify-center md:justify-start">
                     <StockInfoTable />
                   </div>
                 </motion.div>

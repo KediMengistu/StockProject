@@ -87,7 +87,7 @@ export function ChartBarVolume() {
   }, [chartData]);
 
   return (
-    <Card className="h-fit w-[250px] py-0 gap-1 bg-transparent shadow-none border-none">
+    <Card className="h-fit min-w-[100px] max-w-[250px] py-0 gap-1 bg-transparent shadow-none border-none">
       <CardHeader className="py-2 border-1 border-black dark:border-stone-700 shadow-[5px_5px_0px_0px_rgba(0,0,0)] bg-white dark:bg-black dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
         <CardTitle className="underline">{symbol} - Volume Chart</CardTitle>
         <CardDescription>
