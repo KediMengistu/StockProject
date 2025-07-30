@@ -16,7 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useAppStore } from "../../store/appStore"; // ✅ Updated
+import { useAppStore } from "../../store/appStore";
 
 const stocks = [
   { value: "AMZN", label: "Amazon" },
@@ -34,9 +34,17 @@ const stocks = [
 export function ComboBox() {
   const [open, setOpen] = React.useState(false);
   const [value, setValue] = React.useState("");
+
+  const symbol = useAppStore((state) => state.symbol);
   const setSymbol = useAppStore((state) => state.setSymbol);
   const fetchStockData = useAppStore((state) => state.fetchStockData);
   const resetStockState = useAppStore((state) => state.resetStockState);
+
+  // ✅ Sync local UI value with Zustand symbol on mount or symbol change
+  React.useEffect(() => {
+    setValue(symbol || "");
+  }, [symbol]);
+
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -70,15 +78,12 @@ export function ComboBox() {
                   onSelect={(currentValue) => {
                     const isSame = currentValue === value;
                     if (isSame) {
-                      // Deselect the stock
                       setValue("");
                       resetStockState();
                     } else {
-                      // New selection
                       setValue(currentValue);
                       setSymbol(currentValue);
-                      const latestSymbol = useAppStore.getState().symbol;
-                      fetchStockData(latestSymbol);
+                      fetchStockData(currentValue); // ✅ use the selected value
                     }
                     setOpen(false);
                   }}

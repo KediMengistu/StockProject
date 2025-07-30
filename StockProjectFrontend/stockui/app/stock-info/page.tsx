@@ -29,7 +29,7 @@ export default function StockHomePage() {
             (status === "idle" && symbol !== "") ? (
               <>
                 <motion.div
-                  key={`stock-home-pending`}
+                  key={`stock-pending`}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}

@@ -14,10 +14,16 @@ export const useAppStore = create<AppState>()(
       }),
       {
         name: "app-store",
+        partialize: (state) =>
+          Object.fromEntries(
+            Object.entries(state).filter(
+              ([key]) => key !== "hasAuthResolved" // ✅ exclude from persistence
+            )
+          ),
       }
     ),
     {
-      name: "app-store", // 👈 this name shows up in Redux DevTools dropdown
+      name: "app-store", // shows up in Redux DevTools dropdown
     }
   )
 );

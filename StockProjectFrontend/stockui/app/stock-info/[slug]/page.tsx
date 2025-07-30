@@ -69,7 +69,7 @@ export default function StockSelectedPage({
             ) : (
               <>
                 <motion.div
-                  key={"stock-selected-pending"}
+                  key={"stock-pending"}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}

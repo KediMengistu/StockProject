@@ -6,70 +6,107 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { signOutWithGoogle } from "../../firebase/auth_google_signout";
+import { useAppStore } from "@/store/appStore";
 
 export function NavMenu() {
-  const pathname = usePathname();
-  async function handleClick() {
+  const loggedIn = useAppStore((state) => state.loggedIn);
+  const router = useRouter();
+
+  async function handleSignoutClick() {
     await signOutWithGoogle();
   }
+
+  function handleAccountSetupClick() {
+    router.replace("/start");
+  }
+
+  function handlePurposeClick() {
+    router.replace("/about/purpose");
+  }
+
+  function handleArchitectureClick() {
+    router.replace("/about/architecture");
+  }
+
+  function handleTechStackClick() {
+    router.replace("/about/tech-stack");
+  }
+
   return (
     <Menubar className="w-fit">
+      {/* Exit / Start */}
       <MenubarMenu>
         <MenubarTrigger className="cursor-pointer text-[9px]">
-          {pathname.includes("stock-info") ? <>Exit</> : <>Start</>}
+          {loggedIn ? <>Exit</> : <>Start</>}
         </MenubarTrigger>
         <MenubarContent className="w-[150px]">
           <MenubarItem className="cursor-pointer text-[9px]">
-            {pathname.includes("stock-info") ? (
-              <>
-                <button className="cursor-pointer" onClick={handleClick}>
-                  Sign out
-                </button>
-              </>
+            {loggedIn ? (
+              <button className="cursor-pointer" onClick={handleSignoutClick}>
+                Sign out
+              </button>
             ) : (
-              <>Account Setup</>
+              <button
+                className="cursor-pointer"
+                onClick={handleAccountSetupClick}
+              >
+                Account Setup
+              </button>
             )}
           </MenubarItem>
-          {pathname.includes("start") ? (
+        </MenubarContent>
+      </MenubarMenu>
+
+      {/* About — only show when logged out */}
+      {!loggedIn && (
+        <MenubarMenu>
+          <MenubarTrigger className="cursor-pointer text-[9px]">
+            About
+          </MenubarTrigger>
+          <MenubarContent>
             <MenubarItem className="cursor-pointer text-[9px]">
-              App Preview
+              <button className="cursor-pointer" onClick={handlePurposeClick}>
+                Purpose
+              </button>
             </MenubarItem>
-          ) : (
-            <></>
-          )}
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger className="cursor-pointer text-[9px]">
-          About
-        </MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem className="cursor-pointer text-[9px]">
-            Purpose
-          </MenubarItem>
-          <MenubarItem className="cursor-pointer text-[9px]">
-            Architecture
-          </MenubarItem>
-          <MenubarItem className="cursor-pointer text-[9px]">
-            Tech Stack
-          </MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
-      <MenubarMenu>
-        <MenubarTrigger className="cursor-pointer text-[9px]">
-          Contact
-        </MenubarTrigger>
-        <MenubarContent>
-          <MenubarItem className="cursor-pointer text-[9px]">
-            Linkedin
-          </MenubarItem>
-          <MenubarItem className="cursor-pointer text-[9px]">
-            Resume
-          </MenubarItem>
-        </MenubarContent>
-      </MenubarMenu>
+            <MenubarItem className="cursor-pointer text-[9px]">
+              <button
+                className="cursor-pointer"
+                onClick={handleArchitectureClick}
+              >
+                Architecture
+              </button>
+            </MenubarItem>
+            <MenubarItem className="cursor-pointer text-[9px]">
+              <button className="cursor-pointer" onClick={handleTechStackClick}>
+                Tech Stack
+              </button>
+            </MenubarItem>
+          </MenubarContent>
+        </MenubarMenu>
+      )}
+
+      {/* Contact — only show when logged out */}
+      {!loggedIn && (
+        <MenubarMenu>
+          <MenubarTrigger className="cursor-pointer text-[9px]">
+            Contact
+          </MenubarTrigger>
+          <MenubarContent>
+            <a
+              href="https://www.linkedin.com/in/kedamawi-mengistu-97371a2a3/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <MenubarItem className="cursor-pointer text-[9px]">
+                Linkedin
+              </MenubarItem>
+            </a>
+          </MenubarContent>
+        </MenubarMenu>
+      )}
     </Menubar>
   );
 }

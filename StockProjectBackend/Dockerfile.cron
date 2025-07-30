@@ -2,18 +2,22 @@ FROM python:3.13.3-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies (added tzdata for timezone support)
 RUN apt-get update && apt-get install -y \
     cron \
     curl \
-    procps \            
+    procps \
     gcc \
     default-libmysqlclient-dev \
     default-mysql-client \
     pkg-config \
+    tzdata \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy all project files into container
+# Set timezone to America/New_York for cron
+ENV TZ=America/New_York
+
+# Copy project files
 COPY . /app/
 
 # Install Python dependencies
@@ -24,9 +28,9 @@ RUN pip install -r requirements.txt
 COPY crontab /etc/cron.d/stock-cron
 RUN chmod 0644 /etc/cron.d/stock-cron && crontab /etc/cron.d/stock-cron
 
-# Add the wait-for-backend startup script
+# Add wait script
 COPY wait-for-backend.sh /wait-for-backend.sh
 RUN chmod +x /wait-for-backend.sh
 
-# Start the container by waiting for backend, then launching cron in foreground
+# Start cron in foreground after waiting for backend
 CMD ["/wait-for-backend.sh"]
