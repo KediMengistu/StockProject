@@ -4,7 +4,6 @@ import { usePathname, useRouter } from "next/navigation";
 import { auth } from "../../firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { useAppStore } from "@/store/appStore";
-import path from "path";
 
 export default function StoreWrapper({
   children,
@@ -74,7 +73,6 @@ export default function StoreWrapper({
         //user has logged in and is on start page so redirect to stock info
         //this is where the history stack should be cleared
         router.replace("/stock-info");
-        window.history.replaceState(null, "", "/stock-info");
       }
       if (symbol === "") {
         if (!pathname.endsWith("/stock-info") && !pathname.includes("/about")) {

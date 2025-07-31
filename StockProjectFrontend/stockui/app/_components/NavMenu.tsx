@@ -39,23 +39,25 @@ export function NavMenu() {
       {/* Exit / Start */}
       <MenubarMenu>
         <MenubarTrigger className="cursor-pointer text-[9px]">
-          {loggedIn ? <>Exit</> : <>Start</>}
+          {loggedIn ? "Exit" : "Start"}
         </MenubarTrigger>
         <MenubarContent className="w-[150px]">
-          <MenubarItem className="cursor-pointer text-[9px]">
-            {loggedIn ? (
-              <button className="cursor-pointer" onClick={handleSignoutClick}>
+          {loggedIn ? (
+            <button onClick={handleSignoutClick} className="w-full text-left">
+              <MenubarItem className="cursor-pointer text-[9px]">
                 Sign out
-              </button>
-            ) : (
-              <button
-                className="cursor-pointer"
-                onClick={handleAccountSetupClick}
-              >
+              </MenubarItem>
+            </button>
+          ) : (
+            <button
+              onClick={handleAccountSetupClick}
+              className="w-full text-left"
+            >
+              <MenubarItem className="cursor-pointer text-[9px]">
                 Account Setup
-              </button>
-            )}
-          </MenubarItem>
+              </MenubarItem>
+            </button>
+          )}
         </MenubarContent>
       </MenubarMenu>
 
@@ -66,24 +68,24 @@ export function NavMenu() {
             About
           </MenubarTrigger>
           <MenubarContent>
-            <MenubarItem className="cursor-pointer text-[9px]">
-              <button className="cursor-pointer" onClick={handlePurposeClick}>
+            <button onClick={handlePurposeClick} className="w-full text-left">
+              <MenubarItem className="cursor-pointer text-[9px]">
                 Purpose
-              </button>
-            </MenubarItem>
-            <MenubarItem className="cursor-pointer text-[9px]">
-              <button
-                className="cursor-pointer"
-                onClick={handleArchitectureClick}
-              >
+              </MenubarItem>
+            </button>
+            <button
+              onClick={handleArchitectureClick}
+              className="w-full text-left"
+            >
+              <MenubarItem className="cursor-pointer text-[9px]">
                 Architecture
-              </button>
-            </MenubarItem>
-            <MenubarItem className="cursor-pointer text-[9px]">
-              <button className="cursor-pointer" onClick={handleTechStackClick}>
+              </MenubarItem>
+            </button>
+            <button onClick={handleTechStackClick} className="w-full text-left">
+              <MenubarItem className="cursor-pointer text-[9px]">
                 Tech Stack
-              </button>
-            </MenubarItem>
+              </MenubarItem>
+            </button>
           </MenubarContent>
         </MenubarMenu>
       )}
@@ -99,6 +101,7 @@ export function NavMenu() {
               href="https://www.linkedin.com/in/kedamawi-mengistu-97371a2a3/"
               target="_blank"
               rel="noopener noreferrer"
+              className="w-full"
             >
               <MenubarItem className="cursor-pointer text-[9px]">
                 Linkedin

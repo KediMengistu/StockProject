@@ -39,14 +39,7 @@ export default function StockSelectedPage({
                     willChange: "transform",
                     backfaceVisibility: "hidden",
                   }}
-                  className="w-full h-full grid grid-cols-none grid-rows-[auto_auto] md:grid-cols-[1.4fr_1fr] md:grid-rows-1 overflow-y-auto
-                  [&::-webkit-scrollbar]:w-2
-                  [&::-webkit-scrollbar-track]:rounded-full
-                  [&::-webkit-scrollbar-track]:bg-transparent
-                  [&::-webkit-scrollbar-thumb]:rounded-full
-                [&::-webkit-scrollbar-thumb]:bg-gray-300
-                dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-                dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
+                  className="w-full h-full grid grid-cols-none grid-rows-[auto_auto] md:grid-cols-[1.4fr_1fr] md:grid-rows-1 overflow-y-auto scrollbar-hide"
                 >
                   <div className="flex items-end md:items-center justify-center md:justify-end pb-1 md:pb-0 md:pr-1">
                     <div className="min-h-[343.9px] w-fit grid grid-rows-[auto_auto] gap-1">

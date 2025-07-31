@@ -18,16 +18,7 @@ export function StockInfoTable() {
   if (!stockData.length) return null;
 
   return (
-    <div
-      className="max-w-[250px] md:max-w-[298.35px] h-[343.9px] overflow-x-auto rounded-bl-2xl md:rounded-bl-none rounded-tr-none md:rounded-tr-2xl rounded-br-2xl border border-black dark:border-stone-700 bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]
-      [&::-webkit-scrollbar]:w-2
-      [&::-webkit-scrollbar-track]:rounded-full
-      [&::-webkit-scrollbar-track]:bg-transparent
-      [&::-webkit-scrollbar-thumb]:rounded-full
-    [&::-webkit-scrollbar-thumb]:bg-gray-300
-    dark:[&::-webkit-scrollbar-track]:bg-neutral-700
-    dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500"
-    >
+    <div className="max-w-[250px] md:max-w-[298.35px] h-[343.9px] overflow-x-auto rounded-bl-2xl md:rounded-bl-none rounded-tr-none md:rounded-tr-2xl rounded-br-2xl border border-black dark:border-stone-700 bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)] scrollbar-hide">
       <Table>
         <TableCaption className="mt-0 mb-2 ml-3 text-[9px] text-left">
           {symbol} - Change & Market Cap Tracker
