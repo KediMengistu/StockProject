@@ -7,6 +7,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "../../store/appStore";
 import { Spinner } from "@/components/ui/spinner";
+import { Card } from "@/components/ui/card";
 export default function StockHomePage() {
   const symbol = useAppStore((state) => state.symbol);
   const status = useAppStore((state) => state.status);
@@ -20,7 +21,7 @@ export default function StockHomePage() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{ willChange: "transform", backfaceVisibility: "hidden" }}
-        className="h-full w-full p-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-2xl flex items-center justify-center"
+        className="h-full w-full p-2 flex items-center justify-center"
       >
         {status !== "failed" ? (
           <>
@@ -38,10 +39,12 @@ export default function StockHomePage() {
                     willChange: "transform",
                     backfaceVisibility: "hidden",
                   }}
-                  className="w-32 flex items-center justify-center gap-1 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 dark:border-solid rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]"
+                  className="w-32"
                 >
-                  <span className="text-[9px]">Pending...</span>
-                  <Spinner size={"small"} />
+                  <Card className="w-full flex flex-row items-center justify-center gap-1 p-2 rounded-2xl">
+                    <span className="text-[9px]">Pending...</span>
+                    <Spinner size={"small"} />
+                  </Card>
                 </motion.div>
               </>
             ) : (
@@ -59,11 +62,11 @@ export default function StockHomePage() {
                 >
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <div className="w-48 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 dark:border-solid rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
+                      <Card className="w-48 p-2 rounded-2xl ">
                         <p className="text-xs text-center cursor-default">
                           Stock4U Dashboard
                         </p>
-                      </div>
+                      </Card>
                     </TooltipTrigger>
                     <TooltipContent>
                       <p>Choose Stock in Navbar to View Data</p>
@@ -86,7 +89,7 @@ export default function StockHomePage() {
                 backfaceVisibility: "hidden",
               }}
             >
-              <div className="w-48 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 dark:border-solid rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]">
+              <div className="w-48 p-2 rounded-2xl">
                 <p className="text-xs text-center cursor-default">{error}</p>
               </div>
             </motion.div>

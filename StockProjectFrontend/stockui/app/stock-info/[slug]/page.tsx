@@ -7,6 +7,7 @@ import { StockInfoTable } from "@/app/_components/StockInfoTable";
 import { StockSupplementaryTable } from "@/app/_components/StockSupplementaryTable";
 import { useAppStore } from "@/store/appStore";
 import { Spinner } from "@/components/ui/spinner";
+import { Card } from "@/components/ui/card";
 export default function StockSelectedPage({
   params,
 }: {
@@ -23,7 +24,7 @@ export default function StockSelectedPage({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{ willChange: "transform", backfaceVisibility: "hidden" }}
-        className="h-full w-full p-2 shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] rounded-2xl flex items-center justify-center overflow-y-hidden"
+        className="h-full w-full p-2 flex items-center justify-center overflow-y-hidden"
       >
         {slug !== "" ? (
           <>
@@ -39,30 +40,40 @@ export default function StockSelectedPage({
                     willChange: "transform",
                     backfaceVisibility: "hidden",
                   }}
-                  className="w-full h-full grid grid-cols-none grid-rows-[auto_auto] md:grid-cols-[1.4fr_1fr] md:grid-rows-1 overflow-y-auto scrollbar-hide"
+                  className="w-full h-full grid grid-rows-[1fr] overflow-y-auto scrollbar-hide"
                 >
-                  <div className="flex items-end md:items-center justify-center md:justify-end pb-1 md:pb-0 md:pr-1">
-                    <div className="min-h-[343.9px] w-fit grid grid-rows-[auto_auto] gap-1">
-                      <div className="grid grid-rows-2 grid-cols-none md:grid-cols-2 md:grid-rows-none gap-1">
-                        <div className="flex items-center md:items-start justify-center">
-                          <ChartAreaPrice />
-                        </div>
-                        <div className="flex items-center md:items-start justify-center">
-                          <ChartBarVolume />
-                        </div>
-                      </div>
-                      <StockSupplementaryTable />
-                    </div>
-                  </div>
-                  <div className="pb-1 pr-0 md:pb-0 md:pr-1 flex items-start md:items-center justify-center md:justify-start">
-                    <StockInfoTable />
+                  <div className="flex items-center justify-center p-1">
+                    <Card className="grid grid-rows-[auto_auto] grid-cols-none md:grid-cols-[auto_auto] md:grid-rows-none gap-1 p-2 bg-transparent border-none shadow-none">
+                      <Card className="grid grid-rows-[1fr_auto] gap-1 p-2">
+                        <Card className="grid grid-rows-2 grid-cols-none md:grid-cols-2 md:grid-rows-none gap-1 p-2 ">
+                          <Card className="flex items-center justify-center p-2 ">
+                            <ChartAreaPrice />
+                          </Card>
+                          <Card className="flex items-center justify-center p-2 ">
+                            <ChartBarVolume />
+                          </Card>
+                        </Card>
+                        <Card className="md:flex md:items-center md:justify-center p-2">
+                          <Card className="max-w-[600px] flex items-center justify-center p-2">
+                            <StockSupplementaryTable />
+                          </Card>
+                        </Card>
+                      </Card>
+                      <Card className="grid grid-rows-1 p-2">
+                        <Card className="grid grid-rows-1 p-2 ">
+                          <Card className="grid grid-rows-1 p-2 ">
+                            <StockInfoTable />
+                          </Card>
+                        </Card>
+                      </Card>
+                    </Card>
                   </div>
                 </motion.div>
               </>
             ) : (
               <>
                 <motion.div
-                  key={"stock-pending"}
+                  key={`stock-pending`}
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -20 }}
@@ -71,10 +82,12 @@ export default function StockSelectedPage({
                     willChange: "transform",
                     backfaceVisibility: "hidden",
                   }}
-                  className="w-32 flex items-center justify-center gap-1 p-2 bg-white dark:bg-stone-950 border-black dark:border-stone-700 border-1 dark:border-solid rounded-2xl shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)]"
+                  className="w-32"
                 >
-                  <span className="text-[9px]">Pending...</span>
-                  <Spinner size={"small"} />
+                  <Card className="w-full flex flex-row items-center justify-center gap-1 p-2 rounded-2xl">
+                    <span className="text-[9px]">Pending...</span>
+                    <Spinner size={"small"} />
+                  </Card>
                 </motion.div>
               </>
             )}

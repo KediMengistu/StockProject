@@ -33,53 +33,53 @@ export function StockSupplementaryTable() {
   );
 
   return (
-    <div className="max-w-[250px] md:max-w-[504px] overflow-x-auto rounded-bl-none md:rounded-bl-xl border border-black dark:border-stone-700 bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)] scrollbar-hide">
+    <div className="md:max-w-full max-w-[250px] overflow-x-auto scrollbar-hide">
       <Table>
-        <TableCaption className="mt-0 mb-2 ml-3 text-[9px] text-left">
+        <TableCaption className="mt-0 mb-2 ml-3 text-xs text-left">
           {symbol} - Latest Stock Supplementary Information
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Time
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Price
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Open
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Previous Close
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Day Low
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Day High
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Year Low
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Year High
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Volume
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               50-Day Avg
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               200-Day Avg
             </TableHead>
-            <TableHead className="text-[10px] whitespace-nowrap">
+            <TableHead className="text-[12px] whitespace-nowrap">
               Exchange
             </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          <TableRow className="text-[10px]">
+          <TableRow className="text-xs">
             <TableCell className="text-muted-foreground italic">
               @{formattedTime}
             </TableCell>

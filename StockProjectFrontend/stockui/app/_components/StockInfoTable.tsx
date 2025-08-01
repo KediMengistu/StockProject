@@ -18,23 +18,23 @@ export function StockInfoTable() {
   if (!stockData.length) return null;
 
   return (
-    <div className="max-w-[250px] md:max-w-[298.35px] h-[343.9px] overflow-x-auto rounded-bl-2xl md:rounded-bl-none rounded-tr-none md:rounded-tr-2xl rounded-br-2xl border border-black dark:border-stone-700 bg-white dark:bg-black shadow-[5px_5px_0px_0px_rgba(0,0,0)] dark:shadow-[5px_5px_0px_0px_rgba(41,37,36)] scrollbar-hide">
+    <div className="max-w-[250px] md:max-w-[300px] h-full overflow-x-auto scrollbar-hide">
       <Table>
-        <TableCaption className="mt-0 mb-2 ml-3 text-[9px] text-left">
+        <TableCaption className="mt-0 mb-2 ml-3 text-xs text-left">
           {symbol} - Change & Market Cap Tracker
         </TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="whitespace-nowrap text-[10px]">
+            <TableHead className="whitespace-nowrap text-[12px]">
               Time
             </TableHead>
-            <TableHead className="whitespace-nowrap text-[10px]">
+            <TableHead className="whitespace-nowrap text-[12px]">
               Change
             </TableHead>
-            <TableHead className="whitespace-nowrap text-[10px]">
+            <TableHead className="whitespace-nowrap text-[12px]">
               Change%
             </TableHead>
-            <TableHead className="whitespace-nowrap text-[10px]">
+            <TableHead className="whitespace-nowrap text-[12px]">
               Market Cap
             </TableHead>
           </TableRow>
@@ -55,7 +55,7 @@ export function StockInfoTable() {
               });
 
               return (
-                <TableRow key={entry.id} className="text-[10px]">
+                <TableRow key={entry.id} className="text-xs">
                   <TableCell className="text-muted-foreground italic">
                     @{formattedTime}
                   </TableCell>

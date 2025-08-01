@@ -69,21 +69,30 @@ export default function StoreWrapper({
   useEffect(() => {
     if (!hasAuthResolved) return;
     if (loggedIn) {
-      if (pathname.includes("/start")) {
-        //user has logged in and is on start page so redirect to stock info
-        //this is where the history stack should be cleared
+      if (pathname.includes("/start") || pathname.includes("/about")) {
+        //user has logged in and is on logged out protected pages, so redirect to stock-info page.
         router.replace("/stock-info");
       }
+      //currently logged in user has no symbol selected.
       if (symbol === "") {
-        if (!pathname.endsWith("/stock-info") && !pathname.includes("/about")) {
+        //currently logged in user with no symbol is on a symbol page, so redirect to stock-info page.
+        if (
+          pathname.includes("/stock-info") &&
+          !pathname.endsWith("/stock-info")
+        ) {
           router.replace("/stock-info");
         }
-      } else {
+      }
+      //currently logged in user has a symbol selected.
+      else {
+        //user has recently selected a symbol and the status is succeeded, so redirect to stock-info page for that symbol.
         if (status === "succeeded") {
           router.replace(`/stock-info/${symbol}`);
           resetStatus();
         } else {
+          //symbol that is selected has had it's data already fetched and is being displayed, where the status is idle.
           if (status === "idle") {
+            //if the user is on a stock-info page that is not the current symbol, redirect to that symbol's page.
             if (
               pathname.includes("/stock-info") &&
               !pathname.endsWith("/stock-info") &&
@@ -97,7 +106,6 @@ export default function StoreWrapper({
       }
     } else {
       //user is logged out and is on some page that includes stock-info so redirect to start
-      //this is where the history stack should be cleared
       if (pathname.includes("/stock-info")) {
         router.replace("/start");
         resetStockState();
