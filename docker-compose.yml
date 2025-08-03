@@ -1,26 +1,9 @@
 services:
-  mariadb:
-    image: mariadb:11
-    container_name: mariadb
-    restart: always
-    env_file:
-      - .env
-    environment:
-      MARIADB_ROOT_PASSWORD: ${MARIADB_ROOT_PASSWORD}
-      MARIADB_DATABASE: ${MARIADB_DATABASE}
-      MARIADB_USER: ${MARIADB_USER}
-      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
-    ports:
-      - "3306:3306"
-    volumes:
-      - mariadb_data:/var/lib/mysql
-
   backend:
     build:
       context: ./StockProjectBackend
       dockerfile: Dockerfile
     container_name: django-backend
-    entrypoint: ["/app/wait-for-mysql.sh"]
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - ./StockProjectBackend:/app
@@ -29,9 +12,6 @@ services:
       - "8000:8000"
     env_file:
       - .env
-      - ./StockProjectBackend/.env.stockapi
-    depends_on:
-      - mariadb
     restart: unless-stopped
 
   cronjob:
@@ -44,10 +24,6 @@ services:
       - ./StockProjectBackend/firebase/firebase-adminsdk.json:/app/firebase/firebase-adminsdk.json
     env_file:
       - .env
-      - ./StockProjectBackend/.env.stockapi
     depends_on:
       - backend
     restart: unless-stopped
-
-volumes:
-  mariadb_data:

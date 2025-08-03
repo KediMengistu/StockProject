@@ -5,8 +5,7 @@ from dotenv import load_dotenv
 from pathlib import Path
 
 # Load environment variables
-dotenv_path = Path(__file__).resolve().parent.parent / ".env.stockapi"
-load_dotenv(dotenv_path=dotenv_path)
+load_dotenv()
 
 # Internal API
 BACKEND_HOST = os.getenv("BACKEND_HOST")

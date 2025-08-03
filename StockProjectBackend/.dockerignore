@@ -21,3 +21,6 @@ firebase/firebase-adminsdk.json
 # Ignore Git metadata
 .git
 .gitignore
+
+# Ignore Elastic Beanstalk local config
+.elasticbeanstalk/

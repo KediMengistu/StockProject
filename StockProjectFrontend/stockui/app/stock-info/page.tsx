@@ -69,7 +69,12 @@ export default function StockHomePage() {
                       </Card>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Choose Stock in Navbar to View Data</p>
+                      <div className="w-48 flex flex-row items-center justify-center">
+                        <p className="text-center">
+                          Choose Stock in Navbar to View Data. For Latest Data,
+                          refresh App @9am, 12pm, and 3pm EST.
+                        </p>
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                 </motion.div>

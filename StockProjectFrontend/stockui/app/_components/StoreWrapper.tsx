@@ -33,39 +33,6 @@ export default function StoreWrapper({
     return () => unsubscribe();
   }, []);
 
-  // // ✅ Protected route redirection (wait for auth to resolve first)
-  // useEffect(() => {
-  //   if (!hasAuthResolved) return;
-
-  //   if (loggedIn && pathname.includes("/start")) {
-  //     router.replace("/stock-info");
-  //   } else if (!loggedIn && pathname.includes("/start") == false) {
-  //     router.replace("/start");
-  //     resetStockState();
-  //   }
-  // }, [loggedIn, pathname, hasAuthResolved]);
-
-  // useEffect(() => {
-  //   if (!hasAuthResolved) return;
-
-  //   if (status === "succeeded") {
-  //     router.replace(`/stock-info/${symbol}`);
-  //     resetStatus();
-  //   }
-  // }, [status, hasAuthResolved]);
-
-  // useEffect(() => {
-  //   if (!hasAuthResolved) return;
-
-  //   if (
-  //     loggedIn &&
-  //     symbol === "" &&
-  //     pathname.endsWith("/stock-info") === false
-  //   ) {
-  //     router.replace("/stock-info");
-  //   }
-  // }, [symbol, loggedIn, pathname, hasAuthResolved]);
-
   useEffect(() => {
     if (!hasAuthResolved) return;
     if (loggedIn) {

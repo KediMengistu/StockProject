@@ -24,12 +24,9 @@ RUN pip install -r requirements.txt
 # Copy entire Django backend code into container
 COPY . /app/
 
-# ⬇️ Copy and make wait-for-mysql.sh executable
-COPY wait-for-mysql.sh /app/
-RUN chmod +x /app/wait-for-mysql.sh
-
 # Expose the port your Django app will run on
 EXPOSE 8000
 
 # Run the Django development server after waiting for MySQL
-CMD ["/app/wait-for-mysql.sh", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
