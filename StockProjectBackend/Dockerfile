@@ -28,5 +28,4 @@ COPY . /app/
 EXPOSE 8000
 
 # Run the Django development server after waiting for MySQL
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-
+CMD ["sh", "-c", "python /app/firebase/fetch_firebase_secret.py && python manage.py runserver 0.0.0.0:8000"]

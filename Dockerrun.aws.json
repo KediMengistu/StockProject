@@ -1,0 +1,22 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "django-backend",
+      "image": "django-backend",
+      "essential": true,
+      "memory": 512,
+      "portMappings": [
+        {
+          "containerPort": 8000
+        }
+      ]
+    },
+    {
+      "name": "cronjob",
+      "image": "cronjob",
+      "essential": false,
+      "memory": 256
+    }
+  ]
+}

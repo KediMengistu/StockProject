@@ -7,7 +7,6 @@ services:
     command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
     volumes:
       - ./StockProjectBackend:/app
-      - ./StockProjectBackend/firebase/firebase-adminsdk.json:/app/firebase/firebase-adminsdk.json
     ports:
       - "8000:8000"
     env_file:
@@ -21,7 +20,6 @@ services:
     container_name: cronjob
     volumes:
       - ./StockProjectBackend:/app
-      - ./StockProjectBackend/firebase/firebase-adminsdk.json:/app/firebase/firebase-adminsdk.json
     env_file:
       - .env
     depends_on:

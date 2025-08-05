@@ -19,11 +19,13 @@ DEBUG = True
 ALLOWED_HOSTS = [
   "localhost",
   "127.0.0.1",
-  os.getenv('BACKEND_HOST')
+  os.getenv('BACKEND_HOST'),
+  os.getenv('AWS_EB_HOST'),
 ]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    os.getenv('VERCEL_HOST'),
 ]
 
 # Application definition

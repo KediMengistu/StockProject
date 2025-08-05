@@ -33,4 +33,4 @@ COPY wait-for-backend.sh /wait-for-backend.sh
 RUN chmod +x /wait-for-backend.sh
 
 # Start cron in foreground after waiting for backend
-CMD ["/wait-for-backend.sh"]
+CMD ["sh", "-c", "python /app/firebase/fetch_firebase_secret.py && /wait-for-backend.sh"]
