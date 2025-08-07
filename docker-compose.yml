@@ -3,25 +3,64 @@ services:
     build:
       context: ./StockProjectBackend
       dockerfile: Dockerfile
-    container_name: django-backend
-    command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-    volumes:
-      - ./StockProjectBackend:/app
+    command:
+      [
+        "sh",
+        "-c",
+        "python /app/firebase/fetch_firebase_secret.py && python manage.py runserver 0.0.0.0:8000",
+      ]
     ports:
-      - "8000:8000"
-    env_file:
-      - .env
+      - "80:8000"
     restart: unless-stopped
+    environment:
+      # All these will be injected from EB Environment Properties
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      EXTERNAL_API_KEY: ${EXTERNAL_API_KEY}
+      AWS_REGION: ${AWS_REGION}
+      FIREBASE_SECRET_NAME: ${FIREBASE_SECRET_NAME}
+      FIREBASE_CREDENTIALS: ${FIREBASE_CREDENTIALS}
+      BACKEND_HOST: ${BACKEND_HOST}
+      BACKEND_PORT: ${BACKEND_PORT}
+      AWS_EB_HOST: ${AWS_EB_HOST}
+      VERCEL_HOST: ${VERCEL_HOST}
 
   cronjob:
     build:
       context: ./StockProjectBackend
       dockerfile: Dockerfile.cron
-    container_name: cronjob
-    volumes:
-      - ./StockProjectBackend:/app
-    env_file:
-      - .env
+    command:
+      [
+        "sh",
+        "-c",
+        "python /app/firebase/fetch_firebase_secret.py && /wait-for-backend.sh",
+      ]
     depends_on:
       - backend
     restart: unless-stopped
+    environment:
+      # Same envs so cronjob can hit backend + use Firebase
+      MARIADB_DATABASE: ${MARIADB_DATABASE}
+      MARIADB_USER: ${MARIADB_USER}
+      MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DJANGO_SUPERUSER_USERNAME: ${DJANGO_SUPERUSER_USERNAME}
+      DJANGO_SUPERUSER_EMAIL: ${DJANGO_SUPERUSER_EMAIL}
+      DJANGO_SUPERUSER_PASSWORD: ${DJANGO_SUPERUSER_PASSWORD}
+      INTERNAL_API_KEY: ${INTERNAL_API_KEY}
+      EXTERNAL_API_KEY: ${EXTERNAL_API_KEY}
+      AWS_REGION: ${AWS_REGION}
+      FIREBASE_SECRET_NAME: ${FIREBASE_SECRET_NAME}
+      FIREBASE_CREDENTIALS: ${FIREBASE_CREDENTIALS}
+      BACKEND_HOST: ${BACKEND_HOST}
+      BACKEND_PORT: ${BACKEND_PORT}
+      AWS_EB_HOST: ${AWS_EB_HOST}
+      VERCEL_HOST: ${VERCEL_HOST}

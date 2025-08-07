@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',              # ✅ Added missing default app
     'corsheaders',
     'rest_framework',
+    'ebhealthcheck.apps.EBHealthCheckConfig',
 ]
 
 MIDDLEWARE = [
