@@ -3,9 +3,9 @@ import os
 import json
 import sys
 
-SECRET_NAME = os.getenv("FIREBASE_SECRET_NAME")
-REGION_NAME = os.getenv("AWS_REGION")
-OUTPUT_PATH = os.getenv("FIREBASE_CREDENTIALS")
+SECRET_NAME = os.environ.get("FIREBASE_SECRET_NAME")
+REGION_NAME = os.environ.get("AWS_REGION")
+OUTPUT_PATH = os.environ.get("FIREBASE_CREDENTIALS")
 
 def fetch_and_store_secret():
     """Fetch Firebase credentials from AWS Secrets Manager and save to file."""

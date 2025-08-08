@@ -7,7 +7,7 @@ import os
 class InternalAPIKeyAuthentication(BaseAuthentication):
     def authenticate(self, request):
         internal_key = request.headers.get("X-INTERNAL-KEY")
-        expected_key = os.getenv("INTERNAL_API_KEY")
+        expected_key = os.environ.get("INTERNAL_API_KEY")
         if internal_key is None:
             return None  # Allow other authenticators to try
 

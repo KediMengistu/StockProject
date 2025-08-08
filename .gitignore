@@ -60,3 +60,6 @@ StockProjectFrontend/stockui/next-env.d.ts
 # Environment / Secrets
 # ========================
 .env*
+
+# Temporary runtime env file for cron (generated in container)
+env.sh

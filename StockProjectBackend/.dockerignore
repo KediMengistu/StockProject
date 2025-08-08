@@ -24,3 +24,6 @@ firebase/firebase-adminsdk.json
 
 # Ignore Elastic Beanstalk local config
 .elasticbeanstalk/
+
+# Avoid including local env.sh in image if it exists
+env.sh

@@ -8,10 +8,10 @@ from pathlib import Path
 load_dotenv()
 
 # Internal API
-BACKEND_HOST = os.getenv("BACKEND_HOST")
-BACKEND_PORT = os.getenv("BACKEND_PORT")
+BACKEND_HOST = os.environ.get("BACKEND_HOST")
+BACKEND_PORT = os.environ.get("BACKEND_PORT")
 INTERNAL_API_BASE = f"http://{BACKEND_HOST}:{BACKEND_PORT}/api/stocks"
-INTERNAL_API_KEY = os.getenv("INTERNAL_API_KEY")
+INTERNAL_API_KEY = os.environ.get("INTERNAL_API_KEY")
 
 # External API
 EXTERNAL_API_KEY = os.getenv("EXTERNAL_API_KEY")
@@ -31,7 +31,9 @@ def fetch_stock_data(symbol):
         "apikey": EXTERNAL_API_KEY
     }
     try:
-        log(f"Fetching data for: {symbol}")
+        full_url = requests.Request('GET', EXTERNAL_API_URL, params=params).prepare().url
+        log(f"📡 Fetching from External API: {full_url}")
+
         response = requests.get(EXTERNAL_API_URL, params=params)
         data = response.json()
         
@@ -39,7 +41,7 @@ def fetch_stock_data(symbol):
             log(f"❌ Error or empty data for {symbol}: {response.status_code} {data}")
             return None
 
-        return data[0]  # External API returns a list of dicts
+        return data[0]
 
     except Exception as e:
         log(f"❌ Request failed for {symbol}: {e}")

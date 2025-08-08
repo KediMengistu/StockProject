@@ -1,18 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 
-set -e
+# 👇 This is the fix: prepend `export` to each env var so cron can use them
+printenv | grep -E 'EXTERNAL_API_KEY|INTERNAL_API_KEY|BACKEND_HOST|BACKEND_PORT' \
+  | sed 's/^/export /' > /env.sh
 
-echo "⏳ Waiting for backend to be available at $BACKEND_HOST:$BACKEND_PORT..."
+chmod 600 /env.sh
+echo "🔐 Environment prepared for cron execution."
 
-# Wait for Django backend to be healthy
-until curl -s "http://$BACKEND_HOST:$BACKEND_PORT/api/health/" > /dev/null; do
-  >&2 echo "🔁 Backend is unavailable — sleeping..."
-  sleep 2
+# Wait for backend to be available before starting cron
+until curl -s http://$BACKEND_HOST:$BACKEND_PORT/healthz > /dev/null; do
+  echo "⏳ Waiting for backend to be available at $BACKEND_HOST:$BACKEND_PORT..."
+  sleep 5
 done
 
-echo "✅ Backend is up — preparing cron log..."
-touch /var/log/cron.log
-chmod 666 /var/log/cron.log
-
-echo "✅ Starting cron in foreground..."
+echo "✅ Backend is up. Starting cron."
 cron -f
