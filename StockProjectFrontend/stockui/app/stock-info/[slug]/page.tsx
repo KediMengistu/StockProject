@@ -40,7 +40,7 @@ export default function StockSelectedPage({
                     willChange: "transform",
                     backfaceVisibility: "hidden",
                   }}
-                  className="w-full h-full grid grid-rows-[1fr] overflow-y-auto scrollbar-hide md:shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
+                  className="w-full h-full grid grid-rows-[1fr] overflow-y-auto scrollbar-hide shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] md:shadow-none"
                 >
                   <div className="flex items-center justify-center p-1">
                     <Card className="grid grid-rows-[auto_auto] grid-cols-none md:grid-cols-[auto_auto] md:grid-rows-none gap-1 p-2 bg-transparent border-none shadow-none">
