@@ -1,31 +1,25 @@
-# Use official Python image (version matches your local env)
 FROM python:3.13.3-slim
 
-# Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1         
+ENV PYTHONUNBUFFERED=1
 
-# Set the working directory inside the container
 WORKDIR /app
 
-# Install system dependencies required for mysqlclient
 RUN apt-get update && apt-get install -y \
-    gcc \
-    default-libmysqlclient-dev \
-    default-mysql-client \
-    pkg-config \
+    gcc default-libmysqlclient-dev default-mysql-client pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install dependencies
 COPY ./requirements.txt /app/
-RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-# Copy entire Django backend code into container
 COPY . /app/
 
-# Expose the port your Django app will run on
+# Collect static at build time (no user input)
+# RUN python /app/manage.py collectstatic --noinput
+
 EXPOSE 8000
 
-# Run the Django development server after waiting for MySQL
-CMD ["sh", "-c", "python /app/firebase/fetch_firebase_secret.py && python manage.py runserver 0.0.0.0:8000"]
+# Fetch firebase secret, run migrations, then gunicorn
+CMD sh -c "python /app/firebase/fetch_firebase_secret.py \
+  && python manage.py migrate --noinput \
+  && gunicorn StockAPI.wsgi:application --bind 0.0.0.0:8000 --workers 3 --timeout 120"

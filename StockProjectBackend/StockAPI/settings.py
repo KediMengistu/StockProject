@@ -17,10 +17,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-override-this-in-production')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Allowed hosts
 ALLOWED_HOSTS = list(filter(None, [
@@ -42,6 +42,10 @@ CSRF_TRUSTED_ORIGINS = list(filter(None, [
     f"https://{os.environ.get('AWS_EB_HTTPS_DOM_ONE')}" if os.environ.get('AWS_EB_HTTPS_DOM_ONE') else None,
     f"https://{os.environ.get('AWS_EB_HTTPS_DOM_TWO')}" if os.environ.get('AWS_EB_HTTPS_DOM_TWO') else None,
 ]))
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # CORS settings
 CORS_ALLOWED_ORIGINS = list(filter(None, [
@@ -65,6 +69,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,6 +78,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 ROOT_URLCONF = 'StockAPI.urls'
 
@@ -130,7 +141,7 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Needed for collectstatic in prod
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Needed for collectstatic in prod
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
