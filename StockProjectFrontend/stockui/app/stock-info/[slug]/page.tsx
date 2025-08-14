@@ -61,7 +61,7 @@ export default function StockSelectedPage({
                       </Card>
                       <Card className="grid grid-rows-1 p-2">
                         <Card className="grid grid-rows-1 p-2 ">
-                          <Card className="grid grid-rows-1 p-2 ">
+                          <Card className="md:grid md:grid-rows-1 md:flex-none flex justify-center items-center p-2 ">
                             <StockInfoTable />
                           </Card>
                         </Card>
