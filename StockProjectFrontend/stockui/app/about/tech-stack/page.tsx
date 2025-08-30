@@ -48,6 +48,12 @@ export default function TechStackPage() {
               </strong>{" "}
               AWS
             </li>
+            <li>
+              <strong className="text-black dark:text-white">
+                Other Services:
+              </strong>{" "}
+              Firebase
+            </li>
           </ul>
         </Card>
       </motion.div>

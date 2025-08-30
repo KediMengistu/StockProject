@@ -72,7 +72,7 @@ export default function StockHomePage() {
                       <div className="w-48 flex flex-row items-center justify-center">
                         <p className="text-center">
                           Choose Stock in Navbar to View Data. For Latest Data,
-                          refresh App @9am, 12pm, and 3pm EST.
+                          refresh App @9:45am, 12:45pm, and 3:45pm EST.
                         </p>
                       </div>
                     </TooltipContent>

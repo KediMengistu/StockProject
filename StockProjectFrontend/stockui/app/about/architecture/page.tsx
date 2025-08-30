@@ -27,7 +27,7 @@ export default function ArchitecturePage() {
                 <li className="font-bold not-italic text-black dark:text-white">
                   <span className="font-normal italic text-muted-foreground">
                     Data from an external Stock Market API is fetched everyday
-                    from Monday to Friday at 9:00 AM, 12:00 PM, and 3:00 PM EST
+                    from Monday to Friday at 9:45 AM, 12:45 PM, and 3:45 PM EST
                     via the CRON Job service that is in a docker container
                     inside of an AWS Elastic Beanstalk environment. The data
                     that is fetched is stored in a seperately located MariaDB

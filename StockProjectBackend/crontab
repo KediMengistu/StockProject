@@ -1,4 +1,4 @@
 CRON_TZ=America/New_York
-0 9 * * 1-5 . /env.sh && /usr/local/bin/python /app/cronjobs/run_cron_task.py >> /var/log/cron.log 2>&1
-0 12 * * 1-5 . /env.sh && /usr/local/bin/python /app/cronjobs/run_cron_task.py >> /var/log/cron.log 2>&1
-0 15 * * 1-5 . /env.sh && /usr/local/bin/python /app/cronjobs/run_cron_task.py >> /var/log/cron.log 2>&1
+45 9  * * 1-5 . /env.sh && /usr/local/bin/python /app/cronjobs/run_cron_task.py >> /var/log/cron.log 2>&1
+45 12 * * 1-5 . /env.sh && /usr/local/bin/python /app/cronjobs/run_cron_task.py >> /var/log/cron.log 2>&1
+45 15 * * 1-5 . /env.sh && /usr/local/bin/python /app/cronjobs/run_cron_task.py >> /var/log/cron.log 2>&1
