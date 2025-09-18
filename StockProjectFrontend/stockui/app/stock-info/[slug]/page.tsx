@@ -99,9 +99,12 @@ export default function StockSelectedPage({
                       </Card>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs">
-                        If stuck on pending, deselect stock and return to Home.
-                      </p>
+                      <div className="w-48 flex flex-row items-center justify-center">
+                        <p className="text-center">
+                          If stuck on pending, deselect stock and return to
+                          Home.
+                        </p>
+                      </div>
                     </TooltipContent>
                   </Tooltip>
                 </motion.div>
