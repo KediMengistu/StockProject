@@ -24,35 +24,38 @@ export default function TechStackPage() {
             development of Stock4U include:
           </p>
           <ul className="list-disc list-inside mt-2 text-muted-foreground">
-            <li>
-              <strong className="text-black dark:text-white">Frontend:</strong>{" "}
-              Next.js, Tailwind, Zustand, Shadcn/ui, AccernityUI, Vercel
+            <li className="font-bold text-black dark:text-white">
+              Frontend:{" "}
+              <span className="font-normal text-muted-foreground">
+                Next.js, Tailwind, Zustand, Shadcn/ui, AccernityUI, Vercel
+              </span>
             </li>
-            <li>
-              <strong className="text-black dark:text-white">Backend:</strong>{" "}
-              Django, Django REST Framework
+            <li className="font-bold text-black dark:text-white">
+              Backend:{" "}
+              <span className="font-normal text-muted-foreground">
+                Django, Django REST Framework
+              </span>
             </li>
-            <li>
-              <strong className="text-black dark:text-white">Database:</strong>{" "}
-              MariaDB
+            <li className="font-bold text-black dark:text-white">
+              Database:{" "}
+              <span className="font-normal text-muted-foreground">
+                {" "}
+                MariaDB
+              </span>
             </li>
-            <li>
-              <strong className="text-black dark:text-white">
-                Containerization:
-              </strong>{" "}
-              Docker
+            <li className="font-bold text-black dark:text-white">
+              Containerization:{" "}
+              <span className="font-normal text-muted-foreground">Docker</span>
             </li>
-            <li>
-              <strong className="text-black dark:text-white">
-                Cloud Hosting:
-              </strong>{" "}
-              AWS
+            <li className="font-bold text-black dark:text-white">
+              Cloud Hosting:{""}
+              <span className="font-normal text-muted-foreground">AWS</span>
             </li>
-            <li>
-              <strong className="text-black dark:text-white">
-                Other Services:
-              </strong>{" "}
-              Firebase
+            <li className="font-bold text-black dark:text-white">
+              Other Services:{" "}
+              <span className="font-normal text-muted-foreground">
+                Firebase
+              </span>
             </li>
           </ul>
         </Card>

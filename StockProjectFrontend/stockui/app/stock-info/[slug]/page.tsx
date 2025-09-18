@@ -1,4 +1,10 @@
+// app/home/[slug]/page.tsx (or wherever StockSelectedPage lives)
 "use client";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { use } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChartAreaPrice } from "@/app/_components/ChartAreaPrice";
@@ -8,6 +14,7 @@ import { StockSupplementaryTable } from "@/app/_components/StockSupplementaryTab
 import { useAppStore } from "@/store/appStore";
 import { Spinner } from "@/components/ui/spinner";
 import { Card } from "@/components/ui/card";
+
 export default function StockSelectedPage({
   params,
 }: {
@@ -84,10 +91,19 @@ export default function StockSelectedPage({
                   }}
                   className="w-32"
                 >
-                  <Card className="w-full flex flex-row items-center justify-center gap-1 p-2 rounded-2xl">
-                    <span className="text-[9px]">Pending...</span>
-                    <Spinner size={"small"} />
-                  </Card>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Card className="w-full flex flex-row items-center justify-center gap-1 p-2 rounded-2xl">
+                        <span className="text-[9px]">Pending...</span>
+                        <Spinner size={"small"} />
+                      </Card>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-xs">
+                        If stuck on pending, deselect stock and return to Home.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
                 </motion.div>
               </>
             )}

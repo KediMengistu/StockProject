@@ -1,3 +1,4 @@
+// app/home/page.tsx (StockHomePage)
 "use client";
 import {
   Tooltip,
@@ -8,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "../../store/appStore";
 import { Spinner } from "@/components/ui/spinner";
 import { Card } from "@/components/ui/card";
+
 export default function StockHomePage() {
   const symbol = useAppStore((state) => state.symbol);
   const status = useAppStore((state) => state.status);
@@ -41,10 +43,19 @@ export default function StockHomePage() {
                   }}
                   className="w-32"
                 >
-                  <Card className="w-full flex flex-row items-center justify-center gap-1 p-2 rounded-2xl">
-                    <span className="text-[9px]">Pending...</span>
-                    <Spinner size={"small"} />
-                  </Card>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Card className="w-full flex flex-row items-center justify-center gap-1 p-2 rounded-2xl">
+                        <span className="text-[9px]">Pending...</span>
+                        <Spinner size={"small"} />
+                      </Card>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p className="text-xs">
+                        If stuck on pending, deselect stock and return to Home.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
                 </motion.div>
               </>
             ) : (

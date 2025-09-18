@@ -36,7 +36,7 @@ export default function ArchitecturePage() {
                 </li>
                 <li className="mt-2 font-bold not-italic text-black dark:text-white">
                   <span className="font-normal italic text-muted-foreground">
-                    The NestJS frontend application, which is hosted on Vercel,
+                    The NextJS frontend application, which is hosted on Vercel,
                     requires users to be logged in via Firebase Authentication
                     to access the stock information. The user can log in using
                     their Google account, which is authenticated by Firebase.
