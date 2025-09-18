@@ -11,7 +11,7 @@ export default function ArchitecturePage() {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         style={{ willChange: "transform", backfaceVisibility: "hidden" }}
-        className="h-full w-full p-2 flex items-center justify-center overflow-y-hidden"
+        className="h-full w-full p-2 flex items-center justify-center overflow-y-hidden focus:outline-none shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)]"
       >
         <Card className="p-4 gap-1 text-[10px] md:text-[12px] max-w-[475px] min-w-[250px] italic">
           <h1 className="text-lg font-bold text-center not-italic underline underline-offset-1 dark:text-white">
